@@ -1,0 +1,204 @@
+body {
+    margin: 0px;
+    min-width: 440px;
+    min-height: 250px;
+}
+
+#StartPage {}
+
+.popup {
+    width: 400px;
+    height: 100px;
+}
+
+.centered div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+}
+
+
+/* Popup container */
+
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+
+/* The actual popup (appears on top) */
+
+.popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}
+
+
+/* Popup arrow */
+
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+}
+
+
+/* Add animation (fade in the popup) */
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#MainPage {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+#PresentationPage {
+    width: calc(100% - 202px);
+}
+
+#ImagesBox {
+    width: 100%;
+    height: calc(100% - 43px);
+}
+
+.centered.img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+}
+
+#PresenterControl {
+    width: calc(100% - 21px);
+    height: 21px;
+    min-width: 205px;
+}
+
+div.fileinputs {
+    position: relative;
+}
+
+div.fakefile {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    width: 87px;
+}
+
+input.file {
+    float: left;
+    position: relative;
+    text-align: right;
+    opacity: 0;
+    z-index: 2;
+    width: 87px;
+}
+
+.SelectImgControl {
+    position: absolute;
+    right: 10px;
+}
+
+.Chat {
+    height: calc(100% - 22px);
+    width: 180px;
+    min-height: 200px;
+}
+
+#WebChatForm {
+    text-align: left;
+    margin: 0 auto;
+    margin-bottom: 25px;
+    padding: 10px;
+    background: #fff;
+    height: calc(100% - 160px);
+    max-width: 160px;
+    border: 1px solid #ACD8F0;
+    overflow: auto;
+}
+
+.ChatMsg {
+    padding: 0px;
+    margin: 0px;
+}
+
+#WebChatTextID {
+    height: 44px;
+}
+
+.ChatControl {
+    width: 180px;
+    margin-top: 10px;
+}
+
+div.brd {
+    border: 1px solid orange;
+    background: #fff5d7;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.split {
+    position: relative;
+}
+
+.split.right {
+    right: 0px;
+}
+
+.split.left {
+    left: 0px;
+}
+
+.split.top {
+    top: 0px;
+}
+
+.split.bot {
+    bottom: 0px;
+}

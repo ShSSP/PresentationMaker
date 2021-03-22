@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="http://comet-server.ru/CometServerApi.js"></script>
+    <script src="Shared.js" type="text/javascript"></script>
+    <script src="ChatPage.js" type="text/javascript"></script>
+    <script src="StartPage.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div id="StartPage" class="centered">
+        <div class="popup centered brd">
+            <div style="width: max-content;">
+                <button style="width: 151px;" onclick="StartLikePresenter()">Start like the presenter</button>
+                <button style="width: 151px;" onclick="StartLikeViewer()">Start like the viewer</button>
+            </div>
+        </div>
+    </div>
+    <div id="MainPage" style="display: none;">
+        <div id="PresentationPage" class="split top left">
+            <div id="ImagesBox" class="split centered"></div>
+            <div id="PresenterControl" class="brd split bot">
+                <div class="fileinputs">
+                    <input type="file" class="file" id="Images" accept="image/jpeg,image/png" multiple/>
+                    <div class="fakefile">
+                        <button>Add images</button>
+                    </div>
+                </div>
+                <div class="SelectImgControl">
+                    <button onclick="SelectPreviousImg()">Previous</button>
+                    <button onclick="SelectNextImg()">Next</button>
+                </div>
+            </div>
+        </div>
+        <div class="Chat brd split top right">
+            <div id="WebChatForm">
+            </div>
+            <div class="WebChatHolder split bot">
+                <input type="text" id="WebChatNameID" class="ChatControl" placeholder="Enter your name...">
+                <textarea id="WebChatTextID" class="ChatControl" placeholder="Send a message to online chat..."></textarea>
+                <div class="ChatControl">
+                    <button type="button" class="non" onclick="webSendMsg();">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<script src="AdminChat.js" type="text/javascript"></script>-->
+</body>
+
+</html>
