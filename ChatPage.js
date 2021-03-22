@@ -3,14 +3,14 @@ $(document).ready(function() {
 
     CometServer().subscription("web_PageChat", function(msg) {
         console.log(["msg web_MainPageChat", msg]);
-        $("#WebChatFormForm").append(
+        $("#WebChatForm").append(
             ChatMsgSpan(msg.data.name, msg.data.text)
         ).scrollTop(999999);
     });
 
     comet_server_signal().connect("AddToMainPageChat", function(msg) {
         console.log(["msg AddToMainPageChat", msg]);
-        $("#WebChatFormForm").append(
+        $("#WebChatForm").append(
             ChatMsgSpan(msg.name, msg.text)
         ).scrollTop(999999);
     });
