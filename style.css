@@ -165,6 +165,7 @@ input.file {
 .ChatMsg {
     padding: 0px;
     margin: 0px;
+    border-top: 1px solid #ACD8F0;
 }
 
 #WebChatTextID {
