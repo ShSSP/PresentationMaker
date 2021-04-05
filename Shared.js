@@ -1,3 +1,5 @@
+let PresentationKey = "";
+
 function HtmlEncode(s) {
     let el = document.createElement("div");
     el.innerText = el.textContent = s;

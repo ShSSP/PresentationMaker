@@ -1,12 +1,18 @@
 function StartLikePresenter() {
+    SavePresentationKey();
     AddScriptElement('AdminChat.js');
     SelfHide();
 }
 
 function StartLikeViewer() {
+    SavePresentationKey();
     AddScriptElement('UserChat.js');
     $("#PresenterControl").remove();
     SelfHide();
+}
+
+function SavePresentationKey() {
+    PresentationKey = $("#PresentationKey").val();
 }
 
 function AddScriptElement(src) {
