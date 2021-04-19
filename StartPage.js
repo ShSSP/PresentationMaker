@@ -1,14 +1,20 @@
 function StartLikePresenter() {
     SavePresentationKey();
+
+    CometServer().subscription(GetPushEvent("web_SessionExists"), function(e) {
+        BackToStart("Presentation with this key already exists.");
+    });
+    CometServer().web_pipe_send(GetPushEvent("web_CreateSession"), {});
+
     AddScriptElement('AdminChat.js');
-    SelfHide();
+    HideAndShow('#StartPage', '#MainPage');
 }
 
 function StartLikeViewer() {
     SavePresentationKey();
     AddScriptElement('UserChat.js');
     $("#PresenterControl").remove();
-    SelfHide();
+    HideAndShow('#StartPage', '#MainPage');
 }
 
 function SavePresentationKey() {
@@ -24,7 +30,18 @@ function AddScriptElement(src) {
     head.append(script);
 }
 
-function SelfHide() {
-    $("#StartPage").hide();
-    $('#MainPage').show();
+function BackToStart(msg) {
+    alert(msg);
+    PresentationKey = "";
+    HideAndShow('#MainPage', '#StartPage');
+    $('script').each(function() {
+        if (this.src === 'AdminChat.js') {
+            this.parentNode.removeChild(this);
+        }
+    })
+}
+
+function HideAndShow(hide, show) {
+    $(hide).hide();
+    $(show).show();
 }

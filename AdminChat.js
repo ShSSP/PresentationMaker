@@ -9,7 +9,7 @@ function imgIbbUrl() {
 
 $(document).ready(function() {
 
-    CometServer().subscription("web_NewUserEntered", function(msg) {
+    CometServer().subscription(GetPushEvent("web_NewUserEntered"), function(msg) {
         console.log(["msg web_NewUserEntered", msg]);
 
         $("#WebChatFormForm").append("<p style='padding: 0px; margin: 0px; color: red; font-weight: bold;'><b>" +
@@ -18,6 +18,10 @@ $(document).ready(function() {
         ).scrollTop(999999);
 
         PushImages();
+    });
+
+    CometServer().subscription(GetPushEvent("web_CreateSession"), function(msg) {
+        CometServer().web_pipe_send(GetPushEvent("web_SessionExists"), {});
     });
 
     comet_server_signal().connect("AddNewImages", function(msg) {
@@ -67,7 +71,7 @@ function SelectNextImg() {
     if (selectedImg < imagePaths.length - 1) {
         showElement("img_" + (selectedImg + 1), "img_" + selectedImg)
         selectedImg++;
-        CometServer().web_pipe_send("web_SelectedImage", { "selected": selectedImg });
+        CometServer().web_pipe_send(GetPushEvent("web_SelectedImage"), { "selected": selectedImg });
     }
 }
 
@@ -75,15 +79,15 @@ function SelectPreviousImg() {
     if (selectedImg > 0) {
         showElement("img_" + (selectedImg - 1), "img_" + selectedImg)
         selectedImg--;
-        CometServer().web_pipe_send("web_SelectedImage", { "selected": selectedImg });
+        CometServer().web_pipe_send(GetPushEvent("web_SelectedImage"), { "selected": selectedImg });
     }
 }
 
 function PushImages() {
     let imgs = JSON.stringify(imagePaths);
 
-    CometServer().web_pipe_send("web_PresentationImages", { "images": imgs });
-    CometServer().web_pipe_send("web_SelectedImage", { "selected": selectedImg });
+    CometServer().web_pipe_send(GetPushEvent("web_PresentationImages"), { "images": imgs });
+    CometServer().web_pipe_send(GetPushEvent("web_SelectedImage"), { "selected": selectedImg });
     comet_server_signal().send_emit("AddNewImages", { "images": imgs });
     comet_server_signal().send_emit("SelecteImage", { "selected": selectedImg });
 }

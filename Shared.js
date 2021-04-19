@@ -1,5 +1,9 @@
 let PresentationKey = "";
 
+function GetPushEvent(event) {
+    return `${event}_key_${PresentationKey}`;
+}
+
 function HtmlEncode(s) {
     let el = document.createElement("div");
     el.innerText = el.textContent = s;

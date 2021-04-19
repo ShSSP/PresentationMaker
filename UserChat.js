@@ -10,12 +10,12 @@ $(document).ready(function() {
     let msg = 'User entered the chat with brouser size: ' + vw + 'x' + vh;
     let name = 'System Ntification';
 
-    CometServer().web_pipe_send("web_NewUserEntered", { "text": msg, "name": name });
+    CometServer().web_pipe_send(GetPushEvent("web_NewUserEntered"), { "text": msg, "name": name });
 });
 
 $(document).ready(function() {
 
-    CometServer().subscription("web_PresentationImages", function(msg) {
+    CometServer().subscription(GetPushEvent("web_PresentationImages"), function(msg) {
         console.log(["msg web_PresentationImages", msg]);
 
         $("#ImagesBox").empty();
@@ -25,7 +25,7 @@ $(document).ready(function() {
         showElement("img_" + shownImg);
     });
 
-    CometServer().subscription("web_SelectedImage", function(msg) {
+    CometServer().subscription(GetPushEvent("web_SelectedImage"), function(msg) {
         console.log(["msg web_SelectedImage", msg]);
         let selectedImg = msg.data.selected;
         showElement("img_" + selectedImg, "img_" + shownImg);
