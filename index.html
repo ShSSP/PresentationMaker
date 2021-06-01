@@ -10,8 +10,15 @@
 </head>
 
 <body>
+    <div id="loading"></div>
+    <div id="popup" class="popup">
+        <!-- Modal content -->
+        <div class="popup-content brd">
+            <span class="popup-close">&times;</span>
+        </div>
+    </div>
     <div id="StartPage" class="centered">
-        <div id="PreView" class="popup centered brd">
+        <div id="PreView" class="preview centered brd">
             <div>
                 <input type="text" id="PresentationKey" style="width: 306; margin-bottom: 3.5px;" placeholder="Enter presentation key...">
                 <button style="width: 151px;" onclick="StartLikePresenter()">Start like the presenter</button>

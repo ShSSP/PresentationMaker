@@ -8,15 +8,7 @@ function imgIbbUrl() {
 }
 
 $(document).ready(function() {
-
     CometServer().subscription(GetPushEvent("web_NewUserEntered"), function(msg) {
-        console.log(["msg web_NewUserEntered", msg]);
-
-        $("#WebChatFormForm").append("<p style='padding: 0px; margin: 0px; color: red; font-weight: bold;'><b>" +
-            HtmlEncode(msg.data.name) + ": </b>" +
-            HtmlEncode(msg.data.text) + "</p>"
-        ).scrollTop(999999);
-
         PushImages();
     });
 
@@ -29,7 +21,7 @@ $(document).ready(function() {
 
         let imgPaths = JSON.parse(msg.images);
         imgPaths.forEach((imgPath, index) => AddImg(imgPath, index));
-        showElement("img_" + selectedImg);
+        $("#img_" + selectedImg).show();
     });
 });
 
@@ -69,7 +61,8 @@ $('#Images').change(function() {
 
 function SelectNextImg() {
     if (selectedImg < imagePaths.length - 1) {
-        showElement("img_" + (selectedImg + 1), "img_" + selectedImg)
+        $("#img_" + selectedImg).hide();
+        $("#img_" + (selectedImg + 1)).show();
         selectedImg++;
         CometServer().web_pipe_send(GetPushEvent("web_SelectedImage"), { "selected": selectedImg });
     }
@@ -77,7 +70,8 @@ function SelectNextImg() {
 
 function SelectPreviousImg() {
     if (selectedImg > 0) {
-        showElement("img_" + (selectedImg - 1), "img_" + selectedImg)
+        $("#img_" + selectedImg).hide();
+        $("#img_" + (selectedImg - 1)).show();
         selectedImg--;
         CometServer().web_pipe_send(GetPushEvent("web_SelectedImage"), { "selected": selectedImg });
     }

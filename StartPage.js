@@ -1,20 +1,48 @@
+$(function() {
+    let urlParams = new URLSearchParams(window.location.search);
+    let key = urlParams.get('key');
+    if (key) $("#PresentationKey").val(key)
+    let ex = urlParams.get('ex');
+    if (ex) showPopup(ex);
+});
+
 function StartLikePresenter() {
     SavePresentationKey();
 
     CometServer().subscription(GetPushEvent("web_SessionExists"), function(e) {
-        BackToStart("Presentation with this key already exists.");
+        let ex = 'Presentation with this key already exists.'
+        window.location.search += `&key=${PresentationKey}&ex=${ex}`;
     });
     CometServer().web_pipe_send(GetPushEvent("web_CreateSession"), {});
 
     AddScriptElement('AdminChat.js');
-    HideAndShow('#StartPage', '#MainPage');
+    $('#StartPage').hide();
+    $('#MainPage').show();
 }
 
 function StartLikeViewer() {
     SavePresentationKey();
-    AddScriptElement('UserChat.js');
-    $("#PresenterControl").remove();
-    HideAndShow('#StartPage', '#MainPage');
+
+    let flag = false;
+    $('#StartPage').hide();
+
+    CometServer().subscription(GetPushEvent("web_SessionExists"), function(e) {
+        flag = true;
+        $("#loading").hide();
+        AddScriptElement('UserChat.js');
+        $("#PresenterControl").remove();
+        $('#MainPage').show();
+    });
+    CometServer().web_pipe_send(GetPushEvent("web_CreateSession"), {});
+
+    setTimeout(function() {
+        if (flag) return;
+        let ex = 'No presentation with this key was found.'
+        window.location.search += `&key=${PresentationKey}&ex=${ex}`;
+    }, 10000);
+
+
+    $("#loading").show();
 }
 
 function SavePresentationKey() {
@@ -28,20 +56,4 @@ function AddScriptElement(src) {
     script.src = src;
 
     head.append(script);
-}
-
-function BackToStart(msg) {
-    alert(msg);
-    PresentationKey = "";
-    HideAndShow('#MainPage', '#StartPage');
-    $('script').each(function() {
-        if (this.src === 'AdminChat.js') {
-            this.parentNode.removeChild(this);
-        }
-    })
-}
-
-function HideAndShow(hide, show) {
-    $(hide).hide();
-    $(show).show();
 }

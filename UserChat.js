@@ -3,32 +3,23 @@
 $(document).ready(function() {});
 
 $(document).ready(function() {
-
-    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-    const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
-
-    let msg = 'User entered the chat with brouser size: ' + vw + 'x' + vh;
-    let name = 'System Ntification';
-
-    CometServer().web_pipe_send(GetPushEvent("web_NewUserEntered"), { "text": msg, "name": name });
+    CometServer().web_pipe_send(GetPushEvent("web_NewUserEntered"), {});
 });
 
 $(document).ready(function() {
 
     CometServer().subscription(GetPushEvent("web_PresentationImages"), function(msg) {
-        console.log(["msg web_PresentationImages", msg]);
-
         $("#ImagesBox").empty();
 
         let imgPaths = JSON.parse(msg.data.images);
         imgPaths.forEach((imgPath, index) => AddImg(imgPath, index));
-        showElement("img_" + shownImg);
+        $("#img_" + shownImg).show();
     });
 
     CometServer().subscription(GetPushEvent("web_SelectedImage"), function(msg) {
-        console.log(["msg web_SelectedImage", msg]);
         let selectedImg = msg.data.selected;
-        showElement("img_" + selectedImg, "img_" + shownImg);
+        $("#img_" + shownImg).hide();
+        $("#img_" + selectedImg).show();
         shownImg = selectedImg;
     });
 });
