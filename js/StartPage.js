@@ -23,11 +23,11 @@ function StartLikePresenter() {
 function StartLikeViewer() {
     SavePresentationKey();
 
-    let flag = false;
+    let sessionExists = false;
     $('#StartPage').hide();
 
     CometServer().subscription(GetPushEvent("web_SessionExists"), function(e) {
-        flag = true;
+        sessionExists = true;
         $("#loading").hide();
         AddScriptElement('UserChat.js');
         $("#PresenterControl").remove();
@@ -36,7 +36,7 @@ function StartLikeViewer() {
     CometServer().web_pipe_send(GetPushEvent("web_CreateSession"), {});
 
     setTimeout(function() {
-        if (flag) return;
+        if (sessionExists) return;
         $("#loading").hide();
         let ex = 'No presentation with this key was found.'
         showPopup(ex, function() {
