@@ -168,7 +168,7 @@ input.file {
 .ChatMsg {
     padding: 0px;
     margin: 0px;
-    border-top: 1px solid #ACD8F0;
+    border-top: 1px solid #51bffa;
 }
 
 #WebChatTextID {
@@ -181,8 +181,8 @@ input.file {
 }
 
 div.brd {
-    border: 1px solid orange;
-    background: #fff5d7;
+    border: 1px solid #51bffa;
+    background: #bae1f7;
     padding: 10px;
     border-radius: 6px;
 }

@@ -19,8 +19,11 @@ function AddImg(imgPath, index) {
     $("#ImagesBox").append(imgElem).scrollTop(999999);
 }
 
-function showPopup(msg) {
+let popupAfterClose = () => {};
+
+function showPopup(msg, afterClose) {
     let popup = $("#popup");
+    popupAfterClose = afterClose ? afterClose : () => {};
     popup.children(".popup-content").append(`<p>${msg}</p>`);
     popup.show();
 }
@@ -28,6 +31,8 @@ function showPopup(msg) {
 $(function() {
     $('body').on('click', '.popup-close', function() {
         $("#popup").hide();
+        if (popupAfterClose)
+            popupAfterClose();
         var modal = $(this).parents('.popup-content');
         modal.children("p").remove();
     }).on('mousedown', '.popup', function(e) {

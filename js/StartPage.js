@@ -1,9 +1,7 @@
 $(function() {
     let urlParams = new URLSearchParams(window.location.search);
     let key = urlParams.get('key');
-    if (key) $("#PresentationKey").val(key)
-    let ex = urlParams.get('ex');
-    if (ex) showPopup(ex);
+    if (key) $("#PresentationKey").val(key);
 });
 
 function StartLikePresenter() {
@@ -11,7 +9,9 @@ function StartLikePresenter() {
 
     CometServer().subscription(GetPushEvent("web_SessionExists"), function(e) {
         let ex = 'Presentation with this key already exists.'
-        window.location.search += `&key=${PresentationKey}&ex=${ex}`;
+        showPopup(ex, function() {
+            window.location.search += `&key=${PresentationKey}`;
+        });
     });
     CometServer().web_pipe_send(GetPushEvent("web_CreateSession"), {});
 
@@ -37,8 +37,11 @@ function StartLikeViewer() {
 
     setTimeout(function() {
         if (flag) return;
+        $("#loading").hide();
         let ex = 'No presentation with this key was found.'
-        window.location.search += `&key=${PresentationKey}&ex=${ex}`;
+        showPopup(ex, function() {
+            window.location.search += `&key=${PresentationKey}`;
+        });
     }, 10000);
 
 
@@ -53,7 +56,7 @@ function AddScriptElement(src) {
     let head = $('head')[0];
     let script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = src;
+    script.src = 'js/' + src;
 
     head.append(script);
 }
