@@ -29,6 +29,8 @@ function webSendMsg() {
     var text = $("#WebChatTextID").val();
     var name = $("#WebChatNameID").val();
 
+    if (!text || !name) return;
+
     // Cleaning mold
     $("#WebChatTextID").val("");
 
