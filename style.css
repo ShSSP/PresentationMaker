@@ -1,3 +1,9 @@
+html,
+body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
 body {
     margin: 0px;
     min-width: 440px;
@@ -84,12 +90,28 @@ body {
     cursor: pointer;
 }
 
-.centered div {
+.centered>div,
+.centered>form,
+.centered>img {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     max-width: 100%;
+    max-height: 100%;
+}
+
+.form-cell {
+    position: relative;
+    margin-bottom: 2px;
+}
+
+.form-cell>button,
+.form-cell>input {
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid;
+    text-align: center;
 }
 
 #MainPage {
@@ -105,14 +127,6 @@ body {
 #ImagesBox {
     width: 100%;
     height: calc(100% - 43px);
-}
-
-.centered img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 100%;
 }
 
 #PresenterControl {

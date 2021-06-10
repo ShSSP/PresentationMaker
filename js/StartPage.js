@@ -5,11 +5,23 @@ $(function() {
 });
 
 function StartLikePresenter() {
-    SavePresentationKey();
+    let pKey = $("#PresentationKey").val();
+    if (PKeyValidation(pKey)) return;
+
+    SavePresentationKey(pKey);
 
     CometServer().subscription(GetPushEvent("web_SessionExists"), function(e) {
-        let ex = 'Presentation with this key already exists.'
-        showPopup(ex, function() {
+        let msg = 'Presentation with this key already exists. Enter private key to continue:'
+        let control = $('<div>');
+        control.append(`<p>${msg}</p>`);
+        control.append($('<input>').attr({
+            id: 'privatKeyInput',
+            type: 'text'
+        }));
+        control.append($('<button>').attr({
+            onclick: 'PrivatKeyCheck()'
+        }).html('Continue'));
+        showPopupControl(control, function() {
             window.location.search += `&key=${PresentationKey}`;
         });
     });
@@ -21,7 +33,10 @@ function StartLikePresenter() {
 }
 
 function StartLikeViewer() {
-    SavePresentationKey();
+    let pKey = $("#PresentationKey").val();
+    if (PKeyValidation(pKey)) return;
+
+    SavePresentationKey(pKey);
 
     let sessionExists = false;
     $('#StartPage').hide();
@@ -48,8 +63,12 @@ function StartLikeViewer() {
     $("#loading").show();
 }
 
-function SavePresentationKey() {
-    PresentationKey = $("#PresentationKey").val();
+function SavePresentationKey(pKey) {
+    PresentationKey = pKey;
+}
+
+function PKeyValidation(pKey) {
+    return !pKey;
 }
 
 function AddScriptElement(src) {
@@ -59,4 +78,20 @@ function AddScriptElement(src) {
     script.src = 'js/' + src;
 
     head.append(script);
+}
+
+function PrivatKeyCheck() {
+    let key = $('#privatKeyInput').val();
+    CometServer().subscription(GetPushEvent("web_KeyApproved"), function(e) {
+        let msg = 'Key approved.';
+        showPopup(msg, () => {});
+    });
+    CometServer().subscription(GetPushEvent("web_KeyRejected"), function(e) {
+        let ex = 'Key rejected.';
+        showPopup(ex, function() {
+            window.location.search += `&key=${PresentationKey}`;
+        });
+    });
+
+    CometServer().web_pipe_send(GetPushEvent("web_CheckPrivatKey"), { 'key': key });
 }

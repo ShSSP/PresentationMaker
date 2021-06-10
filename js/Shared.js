@@ -22,9 +22,14 @@ function AddImg(imgPath, index) {
 let popupAfterClose = () => {};
 
 function showPopup(msg, afterClose) {
+    showPopupControl($(`<p>${msg}</p>`), afterClose);
+}
+
+function showPopupControl(control, afterClose) {
     let popup = $("#popup");
+    popup.children(".popup-content").children('.popup-msg').children().remove();
     popupAfterClose = afterClose ? afterClose : () => {};
-    popup.children(".popup-content").append(`<p>${msg}</p>`);
+    popup.children(".popup-content").children('.popup-msg').append(control);
     popup.show();
 }
 
@@ -34,7 +39,7 @@ $(function() {
         if (popupAfterClose)
             popupAfterClose();
         var modal = $(this).parents('.popup-content');
-        modal.children("p").remove();
+        modal.children("popup-msg").children().remove();
     }).on('mousedown', '.popup', function(e) {
         if (e.target !== this) return;
         $('.popup-close').trigger('click');

@@ -16,14 +16,21 @@
         <!-- Modal content -->
         <div class="popup-content brd">
             <span class="popup-close">&times;</span>
+            <div class="popup-msg"></div>
         </div>
     </div>
     <div id="StartPage" class="centered">
         <div id="PreView" class="preview centered brd">
-            <div>
-                <input type="text" id="PresentationKey" style="width: 306; margin-bottom: 3.5px;" placeholder="Enter presentation key...">
-                <button style="width: 151px;" onclick="StartLikePresenter()">Start like the presenter</button>
-                <button style="width: 151px;" onclick="StartLikeViewer()">Start like the viewer</button>
+            <div class="form">
+                <div class="form-cell">
+                    <input type="text" id="PresentationKey" placeholder="Enter presentation key...">
+                </div>
+                <div class="form-cell">
+                    <button onclick="StartLikePresenter()">Start like the presenter</button>
+                </div>
+                <div class="form-cell">
+                    <button onclick="StartLikeViewer()">Start like the viewer</button>
+                </div>
             </div>
         </div>
     </div>
@@ -36,6 +43,9 @@
                     <div class="fakefile">
                         <button>Add images</button>
                     </div>
+                </div>
+                <div class="privatKeyControl">
+                    <button onclick="ShowPrivatKey()">Show presentation key</button>
                 </div>
                 <div class="SelectImgControl">
                     <button onclick="SelectPreviousImg()">Previous</button>
