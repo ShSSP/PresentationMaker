@@ -2,11 +2,16 @@
 let presenterImgbbKey = "298d4e3595d9781d0324fe9f80b4965a";
 let imagePaths = [];
 let selectedImg = 0;
+let shownImg = 0;
 let privateKey = Math.random().toString(36).substring(7);
 
 function imgIbbUrl() {
     return `https://api.imgbb.com/1/upload?expiration=${expiration}&key=${presenterImgbbKey}`;
 }
+
+$(document).ready(function() {
+    CometServer().web_pipe_send(GetPushEvent("web_NewUserEntered"), {});
+});
 
 $(document).ready(function() {
     CometServer().subscription(GetPushEvent("web_NewUserEntered"), function(msg) {
@@ -29,6 +34,21 @@ $(document).ready(function() {
         let imgPaths = JSON.parse(msg.images);
         imgPaths.forEach((imgPath, index) => AddImg(imgPath, index));
         $("#img_" + selectedImg).show();
+    });
+
+    CometServer().subscription(GetPushEvent("web_PresentationImages"), function(msg) {
+        $("#ImagesBox").empty();
+
+        let imgPaths = JSON.parse(msg.data.images);
+        imgPaths.forEach((imgPath, index) => AddImg(imgPath, index));
+        $("#img_" + shownImg).show();
+    });
+
+    CometServer().subscription(GetPushEvent("web_SelectedImage"), function(msg) {
+        selectedImg = msg.data.selected;
+        $("#img_" + shownImg).hide();
+        $("#img_" + selectedImg).show();
+        shownImg = selectedImg;
     });
 });
 
@@ -71,6 +91,7 @@ function SelectNextImg() {
         $("#img_" + selectedImg).hide();
         $("#img_" + (selectedImg + 1)).show();
         selectedImg++;
+        shownImg = selectedImg;
         CometServer().web_pipe_send(GetPushEvent("web_SelectedImage"), { "selected": selectedImg });
     }
 }
@@ -80,6 +101,7 @@ function SelectPreviousImg() {
         $("#img_" + selectedImg).hide();
         $("#img_" + (selectedImg - 1)).show();
         selectedImg--;
+        shownImg = selectedImg;
         CometServer().web_pipe_send(GetPushEvent("web_SelectedImage"), { "selected": selectedImg });
     }
 }
