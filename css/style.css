@@ -6,8 +6,16 @@ body {
 
 body {
     margin: 0px;
-    min-width: 440px;
+    min-width: 600px;
     min-height: 250px;
+}
+
+button,
+input,
+textarea {
+    padding: 5px 8px;
+    border: 1px solid;
+    text-align: center;
 }
 
 #loading {
@@ -30,7 +38,7 @@ body {
     /* Hidden by default */
     position: fixed;
     /* Stay in place */
-    z-index: 1;
+    z-index: 2;
     /* Sit on top */
     left: 0;
     top: 0;
@@ -107,11 +115,9 @@ body {
 }
 
 .form-cell>button,
-.form-cell>input {
+.form-cell>input,
+.form-cell>textarea {
     width: 100%;
-    padding: 5px 8px;
-    border: 1px solid;
-    text-align: center;
 }
 
 #MainPage {
@@ -132,11 +138,12 @@ body {
 #PresenterControl {
     width: calc(100% - 21px);
     height: 21px;
-    min-width: 205px;
+    min-width: 377px;
 }
 
 div.fileinputs {
     position: relative;
+    margin-bottom: 0px;
 }
 
 div.fakefile {
@@ -144,7 +151,7 @@ div.fakefile {
     top: 0px;
     left: 0px;
     z-index: 1;
-    width: 87px;
+    width: 89px;
 }
 
 input.file {
@@ -153,12 +160,22 @@ input.file {
     text-align: right;
     opacity: 0;
     z-index: 2;
-    width: 87px;
+    width: 89px;
+    height: 26px;
+}
+
+.privatKeyControl {
+    float: left;
+    margin-left: 5px;
 }
 
 .SelectImgControl {
     position: absolute;
     right: 10px;
+}
+
+.SelectImgControl>button {
+    width: max-content;
 }
 
 .Chat {
@@ -168,13 +185,13 @@ input.file {
 }
 
 #WebChatForm {
+    width: calc(100% - 22px);
     text-align: left;
     margin: 0 auto;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     padding: 10px;
     background: #fff;
-    height: calc(100% - 160px);
-    max-width: 160px;
+    height: calc(100% - 158px);
     border: 1px solid #ACD8F0;
     overflow: auto;
 }
@@ -185,13 +202,16 @@ input.file {
     border-top: 1px solid #51bffa;
 }
 
-#WebChatTextID {
-    height: 44px;
+#OpenColseChat {
+    position: absolute;
+    right: 15px;
+    z-index: 1;
+    display: none;
 }
 
 .ChatControl {
-    width: 180px;
     margin-top: 10px;
+    text-align: left;
 }
 
 div.brd {

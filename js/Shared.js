@@ -45,3 +45,13 @@ $(function() {
         $('.popup-close').trigger('click');
     });
 });
+$(function() {
+    $('body').on('click', '.chat-close', function() {
+        $('.Chat').show();
+        $('#OpenColseChat').addClass('chat-open').removeClass('chat-close');
+    });
+    $('body').on('click', '.chat-open', function() {
+        $('.Chat').hide();
+        $('#OpenColseChat').addClass('chat-close').removeClass('chat-open');
+    });
+});

@@ -2,7 +2,8 @@
 
 <head>
     <title>Presentation helper</title>
-    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <link rel="stylesheet" href="css/mobile.css" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://comet-server.ru/CometServerApi.js"></script>
     <script src="js/Shared.js" type="text/javascript"></script>
@@ -37,29 +38,37 @@
     <div id="MainPage" style="display: none;">
         <div id="PresentationPage" class="split top left">
             <div id="ImagesBox" class="split centered"></div>
-            <div id="PresenterControl" class="brd split bot">
-                <div class="fileinputs">
-                    <input type="file" class="file" id="Images" accept="image/jpeg,image/png" multiple/>
-                    <div class="fakefile">
+            <div id="PresenterControl" class="form brd split bot">
+                <div class="fileinputs form-cell">
+                    <input type="file" class="file" id="Images" accept="image/*" multiple/>
+                    <div class="fakefile form-cell">
                         <button>Add images</button>
                     </div>
                 </div>
-                <div class="privatKeyControl">
+                <div class="privatKeyControl form-cell">
                     <button onclick="ShowPrivatKey()">Show presentation key</button>
                 </div>
-                <div class="SelectImgControl">
+                <div class="SelectImgControl form-cell">
                     <button onclick="SelectPreviousImg()">Previous</button>
                     <button onclick="SelectNextImg()">Next</button>
                 </div>
             </div>
         </div>
+        <dir id="OpenColseChat" class="chat-close">
+            <span id="chat-close">&times;</span>
+            <img id="chat-open" src="chat_icon.png" alt="Chat">
+        </dir>
         <div class="Chat brd split top right">
-            <div id="WebChatForm">
+            <div id="WebChatForm" class="form-cell">
             </div>
             <div class="WebChatHolder split bot">
-                <input type="text" id="WebChatNameID" class="ChatControl" placeholder="Enter your name...">
-                <textarea id="WebChatTextID" class="ChatControl" placeholder="Send a message to online chat..."></textarea>
-                <div class="ChatControl">
+                <div class="form-cell">
+                    <input type="text" id="WebChatNameID" class="ChatControl" placeholder="Enter your name...">
+                </div>
+                <div class="form-cell">
+                    <textarea id="WebChatTextID" class="ChatControl" placeholder="Send a message to online chat..."></textarea>
+                </div>
+                <div class="ChatControl form-cell">
                     <button type="button" class="non" onclick="webSendMsg();">Send</button>
                 </div>
             </div>
