@@ -98,4 +98,14 @@
     .popup-close {
         font-size: 60px;
     }
+    .popup-content button,
+    .popup-content input {
+        height: 70px;
+        font-size: 50px;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    #ImagesBox img {
+        width: 100%;
+    }
 }
