@@ -10,7 +10,7 @@ function StartLikePresenter() {
 
     SavePresentationKey(pKey);
 
-    CometServer().subscription(GetPushEvent("web_SessionExists"), function(e) {
+    let subKey = CometServer().subscription(GetPushEvent("web_SessionExists"), function(e) {
         let msg = 'Presentation with this key already exists. Enter private key to continue:'
         let control = $('<div>');
         control.append(`<p>${msg}</p>`);
@@ -22,10 +22,14 @@ function StartLikePresenter() {
             onclick: 'PrivatKeyCheck()'
         }).html('Continue'));
         showPopupControl(control, function() {
-            window.location.search += `&key=${PresentationKey}`;
+            window.location.search = `key=${PresentationKey}`;
         });
     });
     CometServer().web_pipe_send(GetPushEvent("web_CreateSession"), {});
+
+    setTimeout(function() {
+        CometServer().unsubscription(subKey);
+    }, 10000);
 
     AddScriptElement('AdminChat.js');
     $('#StartPage').hide();

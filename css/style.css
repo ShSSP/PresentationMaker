@@ -65,6 +65,12 @@ textarea {
     /* Could be more or less, depending on screen size */
 }
 
+.popup-content button,
+.popup-content input {
+    margin-bottom: 5px;
+    width: 100%;
+}
+
 
 /* The Close Button */
 

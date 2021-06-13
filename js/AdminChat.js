@@ -29,20 +29,28 @@ $(document).ready(function() {
     });
 
     comet_server_signal().connect("AddNewImages", function(msg) {
-        $("#ImagesBox").empty();
-
         let imgPaths = JSON.parse(msg.images);
-        imgPaths.forEach((imgPath, index) => AddImg(imgPath, index));
-        $("#img_" + selectedImg).show();
+        UpdateImgs(imgPaths);
     });
 
     CometServer().subscription(GetPushEvent("web_PresentationImages"), function(msg) {
-        $("#ImagesBox").empty();
-
         let imgPaths = JSON.parse(msg.data.images);
-        imgPaths.forEach((imgPath, index) => AddImg(imgPath, index));
-        $("#img_" + shownImg).show();
+        UpdateImgs(imgPaths);
     });
+
+    function UpdateImgs(imgPaths) {
+        $("#ImagesBox").empty();
+        imgPaths.forEach((imgPath, index) => {
+            for (let i = 0; i < imagePaths.length; i++) {
+                if (imgPath === imagePaths[i])
+                    return;
+            }
+            imagePaths.push(imgPath);
+        });
+
+        imagePaths.forEach((imgPath, index) => AddImg(imgPath, index));
+        $("#img_" + shownImg).show();
+    }
 
     CometServer().subscription(GetPushEvent("web_SelectedImage"), function(msg) {
         selectedImg = msg.data.selected;
